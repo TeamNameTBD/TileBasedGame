@@ -1,6 +1,7 @@
 # Tile Based Game
 import pygame as pg
 import sys
+from os import path
 import random
 from settings import *
 from sprites import *
@@ -28,18 +29,26 @@ class Game:
         # Set up Sprite Variables
         self.player = None
 
+        # Initialize map variables
+        self.map_data = []
 
         # Load Data
         self.load_data()
 
     def load_data(self):
-        pass
+        game_folder = path.dirname(__file__)
+        with open(path.join(game_folder, 'map.txt'), 'rt') as f:
+            for line in f:
+                self.map_data.append(line)
 
     def new(self):
         # Start a new game
-        self.player = Player(self,0, 3)
-        for x in range(10, 20):
-            Wall(self, x, 5)
+        for row, tiles in enumerate(self.map_data):
+            for col, tile in enumerate(tiles):
+                if tile == "1":
+                    Wall(self, col, row)
+                if tile == "P":
+                    self.player = Player(self, col, row)
 
     def run(self):
         # Game loop
