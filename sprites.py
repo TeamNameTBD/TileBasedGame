@@ -14,7 +14,6 @@ class Player(pg.sprite.Sprite):
         self.vy = 0
         self.x = x * TILESIZE
         self.y = y * TILESIZE
-        print(self.x, self.y)
 
     def get_keys(self):
         self.vx, self.vy = 0, 0
