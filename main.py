@@ -29,6 +29,7 @@ class Game:
 
         # Set up Sprite Variables
         self.player = None
+        self.player_img = None
 
         # Initialize map variables
         self.map = None
@@ -39,7 +40,9 @@ class Game:
 
     def load_data(self):
         game_folder = path.dirname(__file__)
+        img_folder = path.join(game_folder, "img")
         self.map = Map(path.join(game_folder, 'map2.txt'))
+        self.player_img = pg.image.load(path.join(img_folder, PLAYER_IMG)).convert_alpha()
 
     def new(self):
         # Start a new game
