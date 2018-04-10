@@ -2,6 +2,10 @@ import pygame as pg
 from settings import *
 
 
+def collide_hit_rect(one, two):
+    return one.hit_rect.colliderect(two.rect)
+
+
 class Map:
     def __init__(self, filename):
         self.data = []
@@ -25,15 +29,12 @@ class Camera:
         return entity.rect.move(self.camera.topleft)
 
     def update(self, target):
-        x = -target.rect.x + int(WIDTH / 2)
-        y = -target.rect.y + int(HEIGHT / 2)
+        x = -target.rect.centerx + int(WIDTH / 2)
+        y = -target.rect.centery + int(HEIGHT / 2)
 
         # limit scrolling to map size
-        x = min(0, x) # left
-        y = min(0, y) # top
-        x = max(-(self.width - WIDTH), x) # right
-        y = max(-(self.height - HEIGHT), y) # bottom
+        x = min(0, x)  # left
+        y = min(0, y)  # top
+        x = max(-(self.width - WIDTH), x)  # right
+        y = max(-(self.height - HEIGHT), y)  # bottom
         self.camera = pg.Rect(x, y, self.width, self.height)
-
-
-
