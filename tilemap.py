@@ -3,6 +3,9 @@ import pytmx
 from settings import *
 
 
+vec = pg.math.Vector2
+
+
 def collide_hit_rect(one, two):
     return one.hit_rect.colliderect(two.rect)
 
@@ -53,6 +56,9 @@ class Camera:
 
     def apply_rect(self, rect):
         return rect.move(self.camera.topleft)
+
+    def mouse_adjustment(self, mouse):
+        return vec(mouse) + vec(-self.camera.left, -self.camera.top)
 
     def update(self, target):
         x = -target.rect.centerx + int(WIDTH / 2)
