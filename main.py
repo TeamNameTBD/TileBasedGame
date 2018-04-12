@@ -27,6 +27,7 @@ class Game:
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
         self.mobs = pg.sprite.Group()
+        self.bullets = pg.sprite.Group()
 
         # Set up Sprite Variables
         self.player = None
@@ -47,6 +48,7 @@ class Game:
         self.wall_img = pg.image.load(path.join(img_folder, WALL_IMG)).convert_alpha()
         self.wall_img = pg.transform.scale(self.wall_img, (TILESIZE, TILESIZE))
         self.mob_img = pg.image.load(path.join(img_folder, MOB_IMG)).convert_alpha()
+        self.bullet_img = pg.image.load(path.join(img_folder, BULLET_IMG)).convert_alpha()
 
     def new(self):
         # Start a new game
@@ -76,6 +78,9 @@ class Game:
         # Game Loop - Update
         self.all_sprites.update()
         self.camera.update(self.player)
+        hits = pg.sprite.groupcollide(self.mobs, self.bullets, False, True)
+        for hit in hits:
+            hit.kill()
 
     def draw_grid(self):
         for x in range(0, WIDTH, TILESIZE):
