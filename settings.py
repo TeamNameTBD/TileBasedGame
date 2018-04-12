@@ -12,6 +12,7 @@ DARKGREY = (40, 40, 40)
 LIGHTGREY = (100, 100, 100)
 YELLOW = (255, 255, 0)
 BROWN = (106, 55, 5)
+CYAN = (0, 255, 255)
 
 # Game options / settings
 TITLE = "Tilemap Demo"
