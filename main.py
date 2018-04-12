@@ -51,6 +51,7 @@ class Game:
         # Set up Sprite Variables
         self.player = None
         self.player_img = None
+        self.mouse_dir = None
 
         # Initialize map variables
         self.map = None
@@ -112,6 +113,7 @@ class Game:
 
     def update(self):
         # Game Loop - Update
+        self.mouse_dir = vec(self.camera.mouse_adjustment(pg.mouse.get_pos())) - vec(self.player.pos)
         self.all_sprites.update()
         self.camera.update(self.player)
         # mobs hit player
