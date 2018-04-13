@@ -33,7 +33,7 @@ class Game:
         pg.mixer.pre_init(44100, -16, 1, 2048)
         pg.init()
         pg.mixer.init()
-        self.screen = pg.display.set_mode((WIDTH, HEIGHT))
+        self.screen = pg.display.set_mode((WIDTH, HEIGHT), pg.DOUBLEBUF)
         pg.display.set_caption(TITLE)
         self.clock = pg.time.Clock()
         self.dt = None
@@ -162,8 +162,8 @@ class Game:
                 Mob(self, object_center.x, object_center.y)
             if tile_object.name == "wall":
                 Obstacle(self, tile_object.x, tile_object.y, tile_object.width, tile_object.height)
-            if tile_object.name == "health":
-                Item(self, object_center, "health")
+            if tile_object.name in ["health", "shotgun"]:
+                Item(self, object_center, tile_object.name)
 
         self.camera = Camera(self.map.width, self.map.height)
         self.effects_sounds['level_start'].play()
@@ -194,6 +194,10 @@ class Game:
                 hit.kill()
                 self.effects_sounds['health_up'].play()
                 self.player.add_health(HEALTH_PACK_AMOUNT)
+            if hit.type == "shotgun":
+                hit.kill()
+                self.effects_sounds["gun_pickup"].play()
+                self.player.weapon = "shotgun"
         # mobs hit player
         hits = pg.sprite.spritecollide(self.player, self.mobs, False, collide_hit_rect)
         for hit in hits:
@@ -204,6 +208,7 @@ class Game:
             if self.player.health <= 0:
                 self.playing = False
             if hits:
+                self.player.hit()
                 self.player.pos += vec(MOB_KNOCKBACK, 0).rotate(-hits[0].rot)
         # Bullets hit mobs
         hits = pg.sprite.groupcollide(self.mobs, self.bullets, False, True)

@@ -69,6 +69,7 @@ DETECT_RADIUS = 400
 MUZZLE_FLASHES = ["whitePuff15.png", "whitePuff16.png", "whitePuff17.png", "whitePuff18.png"]
 FLASH_DURATION = 40
 SPLAT = "splat green.png"
+DAMAGE_ALPHA = [i for i in range(0, 255, 25)]
 
 # Layers
 WALL_LAYER = 1
@@ -79,7 +80,8 @@ EFFECTS_LAYER = 4
 ITEMS_LAYER = 1
 
 # Items
-ITEM_IMAGES = {"health": "health_pack.png"}
+ITEM_IMAGES = {"health": "health_pack.png",
+               "shotgun": "obj_shotgun.png"}
 HEALTH_PACK_AMOUNT = 20
 BOB_RANGE = 15
 BOB_SPEED = 0.4
@@ -94,4 +96,5 @@ ZOMBIE_HIT_SOUNDS = ["splat-15.wav"]
 WEAPON_SOUNDS = {"pistol": ["pistol.wav"],
                  "shotgun": ["shotgun.wav"]}
 EFFECTS_SOUNDS = {"level_start": "level_start.wav",
-                  "health_up": "health_pack.wav"}
+                  "health_up": "health_pack.wav",
+                  "gun_pickup": "gun_pickup.wav"}
